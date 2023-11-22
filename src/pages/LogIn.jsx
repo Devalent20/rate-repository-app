@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import StyledInputText from '../components/StyledInputText.jsx';
 import theme from '../theme.js';
+import { Formik } from 'formik';
+import { loginValidationSchema } from '../validationSchemas/login.js';
 
-/**
- * Component for the login page.
- */
 const LogInPage = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    // const [email, setEmail] = useState('');
+    // const [password, setPassword] = useState('');
 
     const users = [
         {
@@ -19,12 +18,9 @@ const LogInPage = () => {
             email: 'dami@gmail.com',
             password: '123'
         },
-    ]
-    /**
-     * Handles the form submission.
-     */
+    ];
+
     const handleSubmit = () => {
-        // Perform actions as needed with the email and password.
         const userFound = users.find((user) => user.email === email && user.password === password);
 
         if (userFound) {
@@ -34,42 +30,39 @@ const LogInPage = () => {
         }
     };
 
-    const validate = values => {
-        const errors = {
-
-        }
-
-        if (!values.email) {
-            errors.email = 'Email is required'
-        }
-    }
-
     return (
-        <View style={styles.form}>
-            {/* Input field for email */}
-            <StyledInputText
-                style={{ fontSize: 16 }}
-                placeholder="E-mail"
-                value={email}
-                onChangeText={setEmail}
-            />
+        <Formik
+            initialValues={{ email: '', password: '' }}
+            onSubmit={handleSubmit}
+            validationSchema={loginValidationSchema}
+        >
+            {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+                <View style={styles.form}>
+                    <StyledInputText
+                        style={{ fontSize: 16 }}
+                        placeholder="E-mail"
+                        value={values.email}
+                        onChangeText={handleChange('email')}
+                        onBlur={handleBlur('email')}
+                    />
+                    {touched.email && errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
 
-            {/* Input field for password */}
-            <StyledInputText
-                style={{ fontSize: 16 }}
-                placeholder="Password"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-            />
+                    <StyledInputText
+                        style={{ fontSize: 16 }}
+                        placeholder="Password"
+                        value={values.password}
+                        onChangeText={handleChange('password')}
+                        onBlur={handleBlur('password')}
+                        secureTextEntry
+                    />
+                    {touched.password && errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
 
-            {/* Submit button */}
-            <View>
-                <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-                    <Text style={styles.buttonText}>Log In</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
+                    <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                        <Text style={styles.buttonText}>Log In</Text>
+                    </TouchableOpacity>
+                </View>
+            )}
+        </Formik>
     );
 };
 
@@ -88,7 +81,10 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 20,
-        color: theme.colors.primary
+        color: theme.colors.primary,
+    },
+    errorText: {
+        color: 'red',
     },
 });
 
