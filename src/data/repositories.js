@@ -83,6 +83,34 @@ const repositories = [
         starsCount: 150,
         lastUpdated: '2022-11-22',
       },
+      {
+        id: '7',
+        fullname: 'django-app',
+        description: 'A web app built with Django framework',
+        ratingAverage: 4.6,
+        reviewCount: 25,
+        avatar: 'https://unavatar.io/django',
+        stars: 7200,
+        createdAt: '2022-06-20',
+        language: 'Python',
+        forksCount: 50,
+        starsCount: 100,
+        lastUpdated: '2022-11-15',
+      },
+      {
+        id: '8',
+        fullname: 'rails-app',
+        description: 'Web application developed with Ruby on Rails',
+        ratingAverage: 4.7,
+        reviewCount: 28,
+        avatar: 'https://unavatar.io/rails',
+        stars: 9200,
+        createdAt: '2022-07-10',
+        language: 'Ruby',
+        forksCount: 65,
+        starsCount: 120,
+        lastUpdated: '2022-11-18',
+      }
 ];
 
 export default repositories;
