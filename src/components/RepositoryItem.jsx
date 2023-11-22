@@ -1,20 +1,19 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet, Image } from 'react-native'
+import StyledText from './StyledText.jsx';
+import RepositoryStats from './RepositoryStats.jsx';
+import RepositoryItemHeader from './RepositoryHeader.jsx';
+import theme from '../theme.js';
 
 
 const RepositoryItem = (props) => {
     return (
         <View key={props.id} style={styles.container}>
-      <Text style={ styles.strong }>id: {props.id}</Text>
-      <Text>Fullname: {props.fullname}</Text>
-      <Text>Description: {props.description}</Text>
-      <Text>Language: {props.language}</Text>
-      <Text>Created at: {props.createdAt}</Text>
-      <Text>Rating Average: {props.ratingAverage}</Text>
-      <Text>ForkCount: {props.forksCount}</Text>
-      <Text>Owner: {props.owner}</Text>
-    </View>
-  );
+            <RepositoryItemHeader {...props} />
+            <RepositoryStats {...props} />
+        </View>
+    );
 };
+
 
 const styles = StyleSheet.create({
     container: {
@@ -22,11 +21,6 @@ const styles = StyleSheet.create({
         paddingBottom: 5,
         paddingTop: 5,
     },
-    strong: {
-        color: '#09f',
-        fontWeight: 'bold',
-        fontSize: 18
-    }
 })
 
 export default RepositoryItem
